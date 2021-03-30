@@ -1,0 +1,189 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  background: #eee;
+  padding: 0 16px;
+  /* background-color: #ebf0f6; */
+  background-image: linear-gradient(to left bottom, #07223d, #404368, #7a6592, #ba89b7, #fdb0d8);
+  /* background-image: url("https://www.transparenttextures.com/patterns/black-linen.png"); */
+}
+
+header {
+  background-color: #07223D;
+  margin: auto -16px;
+  padding: 16px 32px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+  color: #fff;
+  /* font-family: "McLaren", cursive; */
+  font-weight: 400;
+}
+
+footer {
+  /* position: fixed; */
+  /* top: 80%; */
+  margin: auto;
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+}
+
+footer p {
+  color: #ccc;
+}
+
+.note {
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px #ccc;
+  padding: 10px;
+  width: 240px;
+  margin: 16px;
+  float: left;
+}
+
+.note h1 {
+  font-size: 1.1em;
+  margin-bottom: 6px;
+}
+
+.note p {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.note button {
+  position: relative;
+  float: right;
+  margin-right: 10px;
+  color: #07223D;
+  background-color: 'white';
+  border: none;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  outline: none;
+}
+
+form.create-note {
+  position: relative;
+  width: 480px;
+  margin: 30px auto 20px auto;
+  background: #fff;
+  padding: 15px;
+  border-radius: 7px;
+  box-shadow: 0 1px 5px rgb(138, 137, 137);
+}
+
+form.create-note input, form.create-note textarea {
+  width: 100%;
+  border: none;
+  padding: 4px;
+  outline: none;
+  font-size: 1.2em;
+  font-family: inherit;
+  resize: none;
+}
+
+form.create-note button {
+  position: absolute;
+  right: 18px;
+  bottom: -18px;
+  background: #07223D;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  outline: none;
+}
+
+.auth {
+  background-color: #fff;
+  width: 400px;
+  height: auto;
+  text-align: center;
+  padding: 10px;
+  margin: 50px auto;
+  border-radius: 6px;
+  box-shadow: 1px 3px 6px #5c5b5b;
+}
+
+.auth h1 {
+  margin-top: 30px;
+  margin-bottom: 40px;
+  font-weight: 400;
+}
+
+.auth p {
+  margin-top: 30px;
+  font-size: small;
+}
+
+.auth input {
+  margin: 10px 40px;
+  width: 300px;
+  height: 40px;
+  border-style: none;
+  border-bottom: solid 1px #ccc;
+  font-size: medium;
+}
+
+input:focus, button {
+  outline-width: 0;
+  outline-color: #fff;
+}
+
+.auth label {
+  font-size: small;
+}
+
+.label-div {
+  padding-left: 40px;
+  text-align: left;
+}
+
+.auth ::placeholder {
+  color: #ccc;
+}
+
+.auth button {
+  margin-top: 30px;
+  font-family: Montserrat;
+  font-weight: 600;
+  width: 300px;
+  height: 45px;
+  border-radius: 24px;
+  border-style: none;
+  color: #fff;
+  box-shadow: 1px 3px 6px #8d8d8d;
+  /* background-image: linear-gradient(to right top, #051937, #3f3a62, #7b5f8c, #ba86b3, #fdb0d8); */
+}
+
+.mouse-over {
+  background-image: linear-gradient(to right top, #eaeaea, #cacaca, #ababab, #8d8d8d, #707070);
+}
+
+.mouse-out {
+  background-image: linear-gradient(to right top, #051937, #3f3a62, #7b5f8c, #ba86b3, #fdb0d8);
+}
+
+.social-icon{
+  width: 40px;
+  margin: 20px 10px;
+}
