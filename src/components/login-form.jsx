@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import Button from "./form-components/button";
 import Label from './form-components/input-label';
+import { BrowserRouter, Link, Redirect, Route } from 'react-router-dom';
+import Home from './home';
 
 function LoginForm(props) {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [routeStatus, setRouteStatus] = useState(false);
 
     function submit(e) {
 
@@ -22,12 +25,35 @@ function LoginForm(props) {
             body: JSON.stringify(data),
             headers: { 'Content-Type': 'application/json' }
         })
-            .then(res => res.json())
-            .then(res => console.log(res))
+            .then(res => res.body)
+            .then(body => {
+                const reader = body.getReader();
+                reader.read().then(res => res.value)
+                    .then(res => {
+                        var string = new TextDecoder().decode(res) //Decode unitArray buffer
+                        const data = JSON.parse(string); //Parse to convert to JSON 
+                        return data.status;
+                    })
+                    .then(res => {
+                        console.log(res)
+                        if (res === 'OK') {
+                            console.log(res)
+                            setRouteStatus(true)
+                            // console.log(routeStatus)
+                        }
+                    })
+                    .then(console.log(routeStatus))
+                    .catch(err => console.log(err))
+            })
             .catch(err => console.log(err));
 
         e.preventDefault();
 
+    }
+
+    if (routeStatus) {
+        alert(routeStatus)
+        return <Redirect to='/home' />;
     }
 
     return <form action='/login' >
@@ -40,7 +66,7 @@ function LoginForm(props) {
         <div className='label-div' ><Label label='Password' /></div>
         <input
             value={password}
-            name='password' placeholder='Enter your password' type='text'
+            name='password' placeholder='Enter your password' type='password'
             onChange={(e) => {
                 setPassword(e.target.value);
             }} required />

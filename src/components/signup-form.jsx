@@ -1,7 +1,7 @@
 import Button from "./form-components/button";
 import Label from './form-components/input-label';
 import { useState } from "react";
-
+import { BrowserRouter, Link, Redirect } from 'react-router-dom'
 
 function SignUpForm() {
 
@@ -18,6 +18,8 @@ function SignUpForm() {
 
     function submit(e) {
 
+        e.preventDefault()
+
         const url = 'http://localhost:9000/signup'
 
         const data = {
@@ -31,12 +33,25 @@ function SignUpForm() {
             body: JSON.stringify(data),
             headers: { 'Content-Type': 'application/json' }
         })
-            .then(console.log(data))
-            .then(res => res.json())
-            .then(res => console.log(res))
+            .then(res => res.body)
+            .then(body => {
+                const reader = body.getReader();
+                reader.read().then(res => res.value)
+                    .then(res => {
+                        var string = new TextDecoder().decode(res) //Decode unitArray buffer
+                        const data = JSON.parse(string); //Parse to convert to JSON 
+                        console.log(data.status)
+                        // alert(data.message)
+                        return data.status
+                    })
+                    .then(res => {
+                        if (res === 'OK') {
+                            return <Redirect to='/home' />
+                        }
+                    })
+                    .catch(err => console.log(err))
+            })
             .catch(err => console.log(err));
-
-        e.preventDefault()
     }
 
     return <form action='/signup' onSubmit={validate && submit}>
@@ -49,7 +64,7 @@ function SignUpForm() {
         <div className='label-div' ><Label label='Password' /></div>
         <input
             value={password}
-            name='password' placeholder='Enter your password' type='text'
+            name='password' placeholder='Enter your password' type='password'
             onChange={(e) => {
                 setPassword(e.target.value);
             }} required />
@@ -60,7 +75,7 @@ function SignUpForm() {
             style={{ outlineWidth: 1, outlineColor: !field ? '#F72514' : '#85d67b' }}
             name='password'
             placeholder='Enter your password again'
-            type='text'
+            type='password'
             onChange={(e) => {
                 setConfirmPassword(e.target.value);
                 password === e.target.value ? setField(true) : setField(false)
