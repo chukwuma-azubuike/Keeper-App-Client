@@ -1,62 +1,58 @@
 import React, { useState } from 'react';
 import Button from "./form-components/button";
 import Label from './form-components/input-label';
-import { BrowserRouter, Link, Redirect, Route } from 'react-router-dom';
-import Home from './home';
+import PropTypes from 'prop-types';
+
+//Post request to submit credentials to server
+async function submit(username, password) {
+
+    const url = "http://localhost:9000/login";
+    const data = {
+        username: username,
+        password: password
+    }
+
+    return fetch(url, {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(res => res.body)
+        .then(body => body.getReader().read()) //Read Stream buffer
+        .then(res => res.value) //Read value of unitArray buffer
+        .then(res => {
+            var string = new TextDecoder().decode(res) //Decode unitArray buffer
+            const data = JSON.parse(string); //Parse to convert to JSON 
+            return data;
+        })
+        .then(res => {
+            if (res.status === 'OK') {
+                console.log(res)
+                return res.token
+            }
+        })
+}
 
 function LoginForm(props) {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [routeStatus, setRouteStatus] = useState(false);
 
-    function submit(e) {
-
-        const url = "http://localhost:9000/login";
-        const data = {
-            username: username,
-            password: password
-        }
-
-        fetch(url, {
-            method: 'POST',
-            mode: 'cors',
-            credentials: 'include',
-            body: JSON.stringify(data),
-            headers: { 'Content-Type': 'application/json' }
-        })
-            .then(res => res.body)
-            .then(body => {
-                const reader = body.getReader();
-                reader.read().then(res => res.value)
-                    .then(res => {
-                        var string = new TextDecoder().decode(res) //Decode unitArray buffer
-                        const data = JSON.parse(string); //Parse to convert to JSON 
-                        return data.status;
-                    })
-                    .then(res => {
-                        console.log(res)
-                        if (res === 'OK') {
-                            console.log(res)
-                            setRouteStatus(true)
-                            // console.log(routeStatus)
-                        }
-                    })
-                    .then(console.log(routeStatus))
-                    .catch(err => console.log(err))
-            })
-            .catch(err => console.log(err));
-
+    const handleSubmit = async e => {
         e.preventDefault();
-
+        const derivedToken = await submit(
+            username,
+            password
+        );
+        console.log(derivedToken);
+        props.setToken(derivedToken)
     }
 
-    if (routeStatus) {
-        alert(routeStatus)
-        return <Redirect to='/home' />;
-    }
-
-    return <form action='/login' >
+    return <form action='/login' onSubmit={handleSubmit} >
         <div className='label-div' ><Label label='Username' /></div>
         <input name='username' placeholder='Enter your username' type='text'
             onChange={(e) => {
@@ -70,8 +66,12 @@ function LoginForm(props) {
             onChange={(e) => {
                 setPassword(e.target.value);
             }} required />
-        <Button buttonText='LOGIN' onClick={submit} />
+        <Button buttonText='LOGIN' />
     </form>
+}
+
+LoginForm.propTypes = {
+    setToken: PropTypes.func.isRequired
 }
 
 export default LoginForm;

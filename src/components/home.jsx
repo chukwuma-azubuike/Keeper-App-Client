@@ -1,53 +1,95 @@
 import React, { useState } from "react";
 import Note from "./Note";
-import CreateArea from "./CreateArea"
-import { BrowserRouter, Redirect } from 'react-router-dom'
-
-// import { render } from "@testing-library/react";
+import CreateArea from "./CreateArea";
+import useToken from '../useToken';
+import Login from './login';
 
 function Home() {
 
+  const { token, setToken } = useToken();
   const [notes, setNotes] = useState([]);
   const [apiResponse, setApiResponse] = useState('');
 
-  //API calls
-  fetch('http://localhost:9000/home')
+  const url = 'http://localhost:9000/home';
+
+  if (!token) { return <div><Login setToken={setToken} /></div> }
+
+  // API call to retrieve user's notes
+  fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-type': 'application/json',
+      'authorization': `Bearer ${token}`
+    }
+  })
     .then(res => {
       const reader = (res.body).getReader();
       reader.read().then(res => res.value)
         .then(res => {
           const body = new TextDecoder().decode(res)
-          console.log(body)
-          if (body.status === 'OK') {
-            setNotes(body.notes) //Render notes retrieved from DBS
-          }
+          const notesIn = JSON.parse(body).notes;
+          setNotes(notesIn) //Render notes retrieved from DB
+          // console.log(notes);
+          return notesIn
         })
-        .then(res => console.log(res))
+        .then(res => console.log(JSON.parse(res)))
     })
-    .catch(err => setApiResponse(`Error --> ${err}`));
+    .catch(err => setApiResponse(`Err ${err}`));
 
+  // API call to add user's notes
   function addNote(newNote) {
-    setNotes(prevNotes => {
-      return [...prevNotes, newNote];
-    });
-    const url = 'http://localhost:9000/home';
+    setNotes(prevNotes =>
+      [...prevNotes, newNote]
+    );
+
     fetch(url, {
       method: 'POST',
-      mode: 'cors',
-      credentials: true,
-      headers: { 'Content-type': 'application/json' },
+      // mode: 'cors',
+      // credentials: 'include',
+      headers: {
+        'Content-type': 'application/json',
+        'authorization': `Bearer ${token}`
+      },
       body: JSON.stringify(notes)
     })
-      .then(res => console.log(res))
+      .then(res => {
+        const reader = (res.body).getReader();
+        reader.read().then(res => res.value)
+          .then(res => {
+            const body = new TextDecoder().decode(res)
+            // console.log(body)
+            // if (body.status === 'OK') {
+            //   setNotes(body.notes) //Render notes retrieved from DB
+            // }
+            return body
+          })
+        // .then(res => console.log(JSON.parse(res).message))
+      })
+      .catch(err => setApiResponse(`Err ${err}`));
   }
 
+  //API call to delete note
   function deleteNote(id) {
+
+    fetch(url, {
+      method: 'POST',
+      // mode: 'cors',
+      // credentials: 'include',
+      headers: {
+        'Content-type': 'application/json',
+        'authorization': `Bearer ${token}`
+      },
+      body: id
+    }).then(res => console.log(res))
+      .catch(err => console.log(err));
+
     setNotes((prevNotes, index) => {
       return prevNotes.filter((noteItem, index) => {
         return noteItem !== id;
       });
     });
   }
+
 
   return (
     <div>

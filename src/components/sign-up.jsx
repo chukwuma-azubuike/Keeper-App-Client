@@ -1,7 +1,7 @@
 import React from 'react';
 import SignUpForm from './signup-form';
 import AuthSocialIcons from './auth-social-icons'
-import { BrowserRouter, Link } from "react-router-dom";
+import { BrowserRouter as Link } from "react-router-dom";
 
 function SignUp() {
 
@@ -10,7 +10,7 @@ function SignUp() {
             <h1>Sign Up</h1>
             <SignUpForm />
             <p>Have an Account Already?</p>
-            <a href=''> <p> <strong><Link to='/login' >LOGIN</Link></strong> </p> </a>
+            <a href='/login' > <p> <strong> <Link to='/login' >LOGIN</Link> </strong> </p> </a>
             <p>Or Login Using</p>
             <AuthSocialIcons />
         </div>

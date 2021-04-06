@@ -24,18 +24,18 @@ function CreateArea(props) {
   }
 
   function submitNote(event) {
+    event.preventDefault();
     let { title, content } = note;
     (title !== '' && content !== '') && props.onAdd(note) //Render nothing if fields are empty
-    setNote({
-      title: "",
-      content: ""
-    });
-    event.preventDefault();
+    // setNote({
+    //   title: "",
+    //   content: ""
+    // });
   }
 
-  function recycleNote(event) {
-    props.onRecycle()
-  }
+  // function recycleNote(event) {
+  //   props.onRecycle()
+  // }
 
   return (
     <div>
@@ -66,9 +66,9 @@ function CreateArea(props) {
             ><AddIcon /></Fab>
           </Zoom>}
       </form>
-      <Fab
+      {/* <Fab
         onClick={recycleNote}
-      ><AddIcon /></Fab>
+      ><AddIcon /></Fab> */}
     </div>
   );
 }

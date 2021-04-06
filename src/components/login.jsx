@@ -1,16 +1,15 @@
 import React from 'react';
-import AuthSocialIcons from './auth-social-icons'
-import LoginForm from './login-form'
+import AuthSocialIcons from './auth-social-icons';
+import LoginForm from './login-form';
+import { BrowserRouter as Link } from "react-router-dom";
 
-import { BrowserRouter, Link } from "react-router-dom";
-
-function Login() {
+function Login(props) {
     return (
         <div className='auth'>
             <h1>Login</h1>
-            <LoginForm />
+            <LoginForm setToken={props.setToken} />
             <p>Not Signed Up?</p>
-            <a href=''> <p> <strong> <Link to='/signup' >SIGN UP</Link> </strong> </p> </a>
+            <a href='/signup'> <p> <strong> <Link to='/signup' >SIGN UP</Link> </strong> </p> </a>
             <p>Or Sign Up Using</p>
             <AuthSocialIcons />
         </div>

@@ -1,7 +1,7 @@
 import Button from "./form-components/button";
 import Label from './form-components/input-label';
 import { useState } from "react";
-import { BrowserRouter, Link, Redirect } from 'react-router-dom'
+import { BrowserRouter as Redirect } from 'react-router-dom'
 
 function SignUpForm() {
 
