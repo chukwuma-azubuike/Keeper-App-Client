@@ -29,10 +29,9 @@ function Home() {
           const body = new TextDecoder().decode(res)
           const notesIn = JSON.parse(body).notes;
           setNotes(notesIn) //Render notes retrieved from DB
-          // console.log(notes);
           return notesIn
         })
-        .then(res => console.log(JSON.parse(res)))
+      // .then(res => console.log(JSON.parse(res)))
     })
     .catch(err => setApiResponse(`Err ${err}`));
 
@@ -44,43 +43,42 @@ function Home() {
 
     fetch(url, {
       method: 'POST',
-      // mode: 'cors',
-      // credentials: 'include',
       headers: {
         'Content-type': 'application/json',
         'authorization': `Bearer ${token}`
       },
-      body: JSON.stringify(notes)
+      body: JSON.stringify(newNote)
     })
       .then(res => {
         const reader = (res.body).getReader();
         reader.read().then(res => res.value)
           .then(res => {
             const body = new TextDecoder().decode(res)
-            // console.log(body)
-            // if (body.status === 'OK') {
-            //   setNotes(body.notes) //Render notes retrieved from DB
-            // }
             return body
           })
-        // .then(res => console.log(JSON.parse(res).message))
       })
       .catch(err => setApiResponse(`Err ${err}`));
   }
 
   //API call to delete note
   function deleteNote(id) {
-
-    fetch(url, {
+    const data = { id: id }
+    fetch(`${url}/delete`, {
       method: 'POST',
-      // mode: 'cors',
-      // credentials: 'include',
       headers: {
         'Content-type': 'application/json',
         'authorization': `Bearer ${token}`
       },
-      body: id
-    }).then(res => console.log(res))
+      body: JSON.stringify(data)
+    })
+      .then(res => {
+        const reader = (res.body).getReader();
+        reader.read().then(res => res.value)
+          .then(res => {
+            const body = new TextDecoder().decode(res)
+            return body
+          })
+      })
       .catch(err => console.log(err));
 
     setNotes((prevNotes, index) => {

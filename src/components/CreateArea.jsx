@@ -27,10 +27,10 @@ function CreateArea(props) {
     event.preventDefault();
     let { title, content } = note;
     (title !== '' && content !== '') && props.onAdd(note) //Render nothing if fields are empty
-    // setNote({
-    //   title: "",
-    //   content: ""
-    // });
+    setNote({
+      title: "",
+      content: ""
+    });
   }
 
   // function recycleNote(event) {
