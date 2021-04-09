@@ -15,9 +15,14 @@ function useToken() {
         setToken(userToken)//Set token in state
     }
 
+    const deleteToken = () => {
+        localStorage.clear('token');//Delete token`
+    }
+
     return {
         setToken: saveToken,
-        token: token
+        token: token,
+        logout: deleteToken
     }
 
 }

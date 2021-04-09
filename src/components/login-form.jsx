@@ -33,7 +33,14 @@ async function submit(username, password) {
             if (res.status === 'OK') {
                 console.log(res)
                 return res.token
+            } else {
+                // alert('Incorrect credentials')
             }
+        })
+        .catch(err => {
+            console.log(err)
+            // alert('Incorrect Credentials')
+            return err;
         })
 }
 
