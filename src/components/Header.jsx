@@ -1,18 +1,18 @@
 import React from "react";
 import EnhancedEncryptionIcon from '@material-ui/icons/EnhancedEncryption';
 // import logOutButton from './logOutButton';
+import Logout from './logout';
+import useToken from '../useToken';
 
 function Header() {
+  const { token } = useToken();
+
   return (
     <div>
       <header>
-        <h1><EnhancedEncryptionIcon /> Keeper</h1>
+        <span><EnhancedEncryptionIcon /> Keeper</span>
+        {token && <span><Logout /></span>}
       </header>
-      {/* <logOutButton
-        buttonText='Logout'
-        type='button'
-        className='logout-button'
-      /> */}
     </div>
   );
 }

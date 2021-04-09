@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import userToken from '../useToken';
-import { BrowserRouter as Link } from 'react-router-dom';
 
 function Logout(props) {
     const { logout } = userToken();
+    const [hover, setHover] = useState(false);
+
     return (
-        <button
-            type='button'
-            onClick={() => {
+        <span className='logout-span'>
+            <a className='logout' href='/' onClick={() => {
                 logout();
-                return <Link to='/' />
-            }}>
-            Logout
-        </button>
+            }}
+                onMouseOver={() => {
+                    setHover(true);
+                }}
+                onMouseOut={() => {
+                    setHover(false);
+                }}
+                style={{ color: hover ? '#fff' : '#ee849f' }}>Logout</a>
+        </span>
     )
 }
 export default Logout;

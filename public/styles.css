@@ -25,10 +25,11 @@ header {
   width: 100%;
 }
 
-header h1 {
+header span {
   color: #fff;
   /* font-family: "McLaren", cursive; */
   font-weight: 400;
+  font-size: 30px;
 }
 
 footer {
@@ -196,4 +197,16 @@ input:focus, button {
   color: white;
   height: 100px;
   width: 100px;
+}
+
+.logout {
+  text-decoration: none;
+  font-size: 15px;
+  position: absolute;
+  right: 20px;
+  top: 23px;
+}
+
+.logout-span {
+  justify-self: right;
 }

@@ -7,7 +7,7 @@ function Login(props) {
     return (
         <div className='auth'>
             <h1>Login</h1>
-            <LoginForm setToken={props.setToken} />
+            <LoginForm />
             <p>Not Signed Up?</p>
             <a href='/signup'> <p> <strong> <Link to='/signup' >SIGN UP</Link> </strong> </p> </a>
             <p>Or Sign Up Using</p>

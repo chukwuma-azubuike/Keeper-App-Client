@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from "./form-components/button";
 import Label from './form-components/input-label';
 import PropTypes from 'prop-types';
+import useToken from '../useToken';
 
 //Post request to submit credentials to server
 async function submit(username, password) {
@@ -34,7 +35,7 @@ async function submit(username, password) {
                 console.log(res)
                 return res.token
             } else {
-                // alert('Incorrect credentials')
+                alert(res.message);
             }
         })
         .catch(err => {
@@ -49,14 +50,15 @@ function LoginForm(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    const { token, setToken } = useToken();
+
     const handleSubmit = async e => {
         e.preventDefault();
         const derivedToken = await submit(
             username,
             password
         );
-        console.log(derivedToken);
-        props.setToken(derivedToken)
+        setToken(derivedToken);
     }
 
     return <form action='/login' onSubmit={handleSubmit} >

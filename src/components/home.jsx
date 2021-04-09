@@ -13,7 +13,7 @@ function Home() {
 
   const url = 'http://localhost:9000/home';
 
-  if (!token) { return <div><Login setToken={setToken} /></div> }
+  if (!token) { return <div><Login/></div> }
 
   // API call to retrieve user's notes
   fetch(url, {
@@ -34,7 +34,10 @@ function Home() {
         })
       // .then(res => console.log(JSON.parse(res)))
     })
-    .catch(err => setApiResponse(`Err ${err}`));
+    .catch(err => {
+      setApiResponse(`Err ${err}`)
+      // return <div><Login/></div>
+    });
 
   // API call to add user's notes
   function addNote(newNote) {
@@ -58,7 +61,7 @@ function Home() {
             return body
           })
       })
-      .catch(err => setApiResponse(`Err ${err}`));
+      .catch(err => setApiResponse(err));
   }
 
   //API call to delete note
@@ -105,7 +108,6 @@ function Home() {
           />
         );
       })}
-      <Logout />
     </div>
   );
 
