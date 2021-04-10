@@ -7,7 +7,7 @@ import useToken from '../useToken';
 //Post request to submit credentials to server
 async function submit(username, password) {
 
-    const url = "http://localhost:9000/login";
+    const url = `${process.env.API_URL}/login`;
     const data = {
         username: username,
         password: password

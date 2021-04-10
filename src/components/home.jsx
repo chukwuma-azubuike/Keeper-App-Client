@@ -10,9 +10,9 @@ function Home() {
   const [notes, setNotes] = useState([]);
   const [apiResponse, setApiResponse] = useState('');
 
-  const url = 'http://localhost:9000/home';
+  const url = `${process.env.API_URL}/home`;
 
-  if (!token) { return <div><Login/></div> }
+  if (!token) { return <div><Login /></div> }
 
   // API call to retrieve user's notes
   fetch(url, {

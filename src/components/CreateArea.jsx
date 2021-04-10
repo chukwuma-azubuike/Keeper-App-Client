@@ -33,10 +33,6 @@ function CreateArea(props) {
     });
   }
 
-  // function recycleNote(event) {
-  //   props.onRecycle()
-  // }
-
   return (
     <div>
       <form className="create-note">
@@ -66,9 +62,6 @@ function CreateArea(props) {
             ><AddIcon /></Fab>
           </Zoom>}
       </form>
-      {/* <Fab
-        onClick={recycleNote}
-      ><AddIcon /></Fab> */}
     </div>
   );
 }

@@ -9,7 +9,7 @@ function SignUpForm() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [field, setField] = useState('');
-    const { token, setToken } = useToken();
+    const { setToken } = useToken();
 
     function validate() {
         if (password === confirmPassword) {
@@ -19,7 +19,7 @@ function SignUpForm() {
 
     function submit() {
 
-        const url = 'http://localhost:9000/signup'
+        const url = `${process.env.API_URL}/signup`
 
         const data = {
             username: username,
