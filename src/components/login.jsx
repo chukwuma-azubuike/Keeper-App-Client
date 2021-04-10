@@ -3,8 +3,11 @@ import AuthSocialIcons from './auth-social-icons';
 import LoginForm from './login-form';
 import { BrowserRouter as Link } from "react-router-dom";
 import useToken from '../useToken';
+import Home from './home';
 
 function Login(props) {
+    const { token } = useToken();
+    if (token) { return <Home /> }
     return (
         <div className='auth'>
             <h1>Login</h1>

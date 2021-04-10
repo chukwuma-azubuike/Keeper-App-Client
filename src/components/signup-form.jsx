@@ -1,7 +1,7 @@
 import Button from "./form-components/button";
 import Label from './form-components/input-label';
 import { useState } from "react";
-import { BrowserRouter as Redirect } from 'react-router-dom'
+import useToken from '../useToken';
 
 function SignUpForm() {
 
@@ -9,16 +9,15 @@ function SignUpForm() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [field, setField] = useState('');
+    const { token, setToken } = useToken();
 
-    function validate(props) {
+    function validate() {
         if (password === confirmPassword) {
             return true
         }
     }
 
-    function submit(e) {
-
-        e.preventDefault()
+    function submit() {
 
         const url = 'http://localhost:9000/signup'
 
@@ -26,7 +25,7 @@ function SignUpForm() {
             username: username,
             password: password
         }
-        fetch(url, {
+        return fetch(url, {
             method: 'POST',
             mode: 'cors',
             credentials: 'include',
@@ -35,18 +34,20 @@ function SignUpForm() {
         })
             .then(res => res.body)
             .then(body => {
+                // console.log(body)
                 const reader = body.getReader();
                 reader.read().then(res => res.value)
                     .then(res => {
                         var string = new TextDecoder().decode(res) //Decode unitArray buffer
                         const data = JSON.parse(string); //Parse to convert to JSON 
-                        console.log(data.status)
-                        // alert(data.message)
-                        return data.status
+                        console.log(data.message)
+                        return data
                     })
                     .then(res => {
-                        if (res === 'OK') {
-                            return <Redirect to='/home' />
+                        if (res.status === 'OK') {
+                            console.log(res.token)
+                            setToken(res.token) //Save token to browser local storage
+                            return res.token
                         }
                     })
                     .catch(err => console.log(err))
@@ -54,7 +55,14 @@ function SignUpForm() {
             .catch(err => console.log(err));
     }
 
-    return <form action='/signup' onSubmit={validate && submit}>
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const derivedToken = await submit(username, password);
+        console.log(derivedToken);
+        window.location.reload(); //Force page to reload and render home
+    }
+
+    return <form action='/signup' onSubmit={validate && handleSubmit}>
         <div className='label-div' ><Label label='Username' /></div>
         <input name='username' placeholder='Enter your username' type='text'
             onChange={(e) => {
@@ -80,7 +88,7 @@ function SignUpForm() {
                 setConfirmPassword(e.target.value);
                 password === e.target.value ? setField(true) : setField(false)
             }} required />
-        <Button buttonText='SIGN UP' onClick={submit} />
+        <Button buttonText='SIGN UP' />
     </form>
 }
 

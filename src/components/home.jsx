@@ -3,7 +3,6 @@ import Note from "./Note";
 import CreateArea from "./CreateArea";
 import useToken from '../useToken';
 import Login from './login';
-import Logout from './logout';
 
 function Home() {
 
