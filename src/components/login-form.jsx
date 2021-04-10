@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from "./form-components/button";
 import Label from './form-components/input-label';
 import PropTypes from 'prop-types';
 import useToken from '../useToken';
+import { Route as Redirect } from 'react-router-dom';
 
 //Post request to submit credentials to server
 async function submit(username, password) {
@@ -58,8 +59,14 @@ function LoginForm(props) {
             username,
             password
         );
-        setToken(derivedToken);
+        console.log(token)
+        derivedToken && setToken(derivedToken);
+        window.location.reload(); //Force page to reload and render home
     }
+
+    // useEffect(() => {
+    console.log(token)
+    // })
 
     return <form action='/login' onSubmit={handleSubmit} >
         <div className='label-div' ><Label label='Username' /></div>
@@ -77,6 +84,8 @@ function LoginForm(props) {
             }} required />
         <Button buttonText='LOGIN' />
     </form>
+
+
 }
 
 LoginForm.propTypes = {
