@@ -10,9 +10,12 @@ function Home() {
   const [notes, setNotes] = useState([]);
   const [apiResponse, setApiResponse] = useState('');
 
-  const url = `${process.env.API_URL}/home`;
+  const url = 'https://keeper-app-02-api.herokuapp.com/home';
+  // const url = 'http://localhost:9000/home';
 
   if (!token) { return <div><Login /></div> }
+
+  // alert(url)
 
   // API call to retrieve user's notes
   fetch(url, {

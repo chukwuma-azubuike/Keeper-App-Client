@@ -19,7 +19,7 @@ function SignUpForm() {
 
     function submit() {
 
-        const url = `${process.env.API_URL}/signup`
+        const url = 'https://keeper-app-02-api.herokuapp.com/signup'
 
         const data = {
             username: username,

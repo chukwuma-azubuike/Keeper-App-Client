@@ -7,7 +7,7 @@ import useToken from '../useToken';
 //Post request to submit credentials to server
 async function submit(username, password) {
 
-    const url = `${process.env.API_URL}/login`;
+    const url = 'https://keeper-app-02-api.herokuapp.com/login';
     const data = {
         username: username,
         password: password
@@ -28,6 +28,7 @@ async function submit(username, password) {
         .then(res => {
             var string = new TextDecoder().decode(res) //Decode unitArray buffer
             const data = JSON.parse(string); //Parse to convert to JSON 
+            console.log(string);
             return data;
         })
         .then(res => {
@@ -57,9 +58,10 @@ function LoginForm(props) {
             username,
             password
         );
+        console.log(derivedToken);
         console.log(token)
         derivedToken && setToken(derivedToken);
-        window.location.reload(); //Force page to reload and render home
+        derivedToken && window.location.reload(); //Force page to reload and render home
     }
 
     return <form action='/login' onSubmit={handleSubmit} >
