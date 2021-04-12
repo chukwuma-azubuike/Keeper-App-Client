@@ -117,7 +117,7 @@ form.create-note button {
 
 .auth {
   background-color: #fff;
-  width: 80%;
+  width: 91%;
   height: auto;
   text-align: center;
   padding: 10px;
@@ -133,6 +133,9 @@ form.create-note button {
   }
   .label-div {
     padding-left: 2%;
+  }
+  .auth button {
+    width: 300px;
   }
 }
 
@@ -188,7 +191,7 @@ input:focus, button {
   margin-top: 30px;
   font-family: Montserrat;
   font-weight: 600;
-  width: 300px;
+  width: 80%;
   height: 45px;
   border-radius: 24px;
   border-style: none;
