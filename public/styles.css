@@ -11,8 +11,7 @@ html {
 body {
   background: #eee;
   background-repeat: no-repeat;
-  height: 800px;
-  /* background-color: #ebf0f6; */
+  height: 910px;
   background-image: linear-gradient(to left bottom, #07223d, #404368, #7a6592, #ba89b7, #fdb0d8);
   /* background-image: url("https://www.transparenttextures.com/patterns/black-linen.png"); */
 }
@@ -34,12 +33,11 @@ header span {
 
 footer {
   position: absolute;
-  bottom: 1px;
+  /* bottom: 1px; */
   margin: auto;
   text-align: center;
-  bottom: 0;
   width: 100%;
-  height: 2.5rem;
+  height: 5rem;
 }
 
 footer p {
@@ -119,13 +117,33 @@ form.create-note button {
 
 .auth {
   background-color: #fff;
-  width: 400px;
+  width: 80%;
   height: auto;
   text-align: center;
   padding: 10px;
   margin: 50px auto;
   border-radius: 6px;
   box-shadow: 1px 3px 6px #5c5b5b;
+}
+
+@media only screen and (min-width: 600px) {
+  /* For Tablet view */
+  .auth {
+    width: 60%;
+  }
+  .label-div {
+    padding-left: 2%;
+  }
+}
+
+@media only screen and (min-width: 800px) {
+  /* For desktop */
+  .auth {
+    width: 425px;
+  }
+  .label-div {
+    padding-left: 10px;
+  }
 }
 
 .auth h1 {
@@ -141,7 +159,7 @@ form.create-note button {
 
 .auth input {
   margin: 10px 40px;
-  width: 300px;
+  width: 80%;
   height: 40px;
   border-style: none;
   border-bottom: solid 1px #ccc;
@@ -158,7 +176,7 @@ input:focus, button {
 }
 
 .label-div {
-  padding-left: 40px;
+  padding-left: 11%;
   text-align: left;
 }
 
